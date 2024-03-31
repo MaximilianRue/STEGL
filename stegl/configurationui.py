@@ -6,6 +6,7 @@ from tkinter import filedialog
 from tkinter import ttk
 from tkinter.messagebox import askyesno, showerror
 from pathlib import Path
+from tktooltip import ToolTip
 
 
 DEFAULT_PADDING = 5
@@ -63,7 +64,7 @@ class ProcessCaptureDetailsEditor(tk.Toplevel):
         
         super().__init__(parent)
         self.parent = parent
-        self.title("Configuration")
+        self.title("Launch Options")
         #self.geometry("300x150")
         self.resizable(True, False)
 
@@ -73,34 +74,40 @@ class ProcessCaptureDetailsEditor(tk.Toplevel):
 
         self.path_selector = PathSelectionWidget(
             tk.StringVar(self), innerFrame, "Exe:", file_dialog_button_text="Open")
+        ToolTip(self.path_selector, msg="exe_path", delay=1.5)
         self.path_selector.path_variable.set(self.parent.configuration_data["exe_path"].get())
         self.path_selector.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
 
         setting = tk.LabelFrame(innerFrame, text="Comma-separated launch arguments:")
+        ToolTip(setting, msg="args", delay=1.5)
         self.arguments_var = tk.StringVar(self, self._arg_list_to_string(parent.configuration_data["args"]))
         self.arguments_field = tk.Entry(setting, textvariable=self.arguments_var)
         self.arguments_field.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
         setting.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
 
         setting0 = tk.LabelFrame(innerFrame, text="Max. Launch Waiting Time (seconds):")
+        ToolTip(setting0, msg="max_launch_waiting", delay=1.5)
         self.max_launch_waiting_slider = tk.Scale(setting0, from_=0, to=60, orient=tk.HORIZONTAL)
         self.max_launch_waiting_slider.set(parent.configuration_data["max_launch_waiting"])
         self.max_launch_waiting_slider.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
         setting0.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
 
         setting1 = tk.LabelFrame(innerFrame, text="Min. Launch Stable Time (seconds):")
+        ToolTip(setting1, msg="min_launch_stable", delay=1.5)
         self.min_launch_stable_slider = tk.Scale(setting1, from_=0, to=60, orient=tk.HORIZONTAL)
         self.min_launch_stable_slider.set(parent.configuration_data["min_launch_stable"])
         self.min_launch_stable_slider.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
         setting1.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
 
         setting2 = tk.LabelFrame(innerFrame, text="Termination Timeout (seconds):")
+        ToolTip(setting2, msg="termination_timeout", delay=1.5)
         self.termination_timeout_slider = tk.Scale(setting2, from_=1, to=60, orient=tk.HORIZONTAL)
         self.termination_timeout_slider.set(parent.configuration_data["termination_timeout"])
         self.termination_timeout_slider.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
         setting2.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
 
         setting3 = tk.LabelFrame(innerFrame, text="Max. Termination Retries:")
+        ToolTip(setting3, msg="termination_retries", delay=1.5)
         self.termination_retries_slider = tk.Scale(setting3, from_=0, to=10, orient=tk.HORIZONTAL)
         self.termination_retries_slider.set(parent.configuration_data["termination_retries"])
         self.termination_retries_slider.pack(fill="x",padx=DEFAULT_PADDING_HALF, pady=DEFAULT_PADDING_HALF)
@@ -243,18 +250,22 @@ class SteglEditor(tk.Tk):
         self.game_directory_selector = PathSelectionWidget(
             None, game_frame, open_mode="open_directory", label_text="Game Dir.:"
         )
+        ToolTip(self.game_directory_selector, msg="GAME.game_search_paths", delay=1.5)
         self.game_directory_selector.pack(fill="x", padx=DEFAULT_PADDING, pady=DEFAULT_PADDING)
 
         self.game_editor = ProcessCaptureEditor(game_frame)
+        ToolTip(self.game_editor, msg="GAME.launch_config.exe_path", delay=1.5)
         self.game_editor.pack(fill="x")
 
         setting0 = tk.LabelFrame(game_frame, text="Game Search Timeout (seconds):")
+        ToolTip(setting0, msg="GAME.game_search_timeout", delay=1.5)
         self.game_search_timeout_slider = tk.Scale(setting0, from_=0, to=300, orient=tk.HORIZONTAL)
         self.game_search_timeout_slider.set(60)
         self.game_search_timeout_slider.pack(fill="x", padx=DEFAULT_PADDING, pady=DEFAULT_PADDING)
         setting0.pack(fill="x", padx=DEFAULT_PADDING, pady=DEFAULT_PADDING)
 
         setting1 = tk.LabelFrame(game_frame, text="After Game Wait (seconds):")
+        ToolTip(setting1, msg="GAME.after_game_wait", delay=1.5)
         self.after_game_wait_slider = tk.Scale(setting1, from_=0, to=300, orient=tk.HORIZONTAL)
         self.after_game_wait_slider.set(10)
         self.after_game_wait_slider.pack(fill="x", padx=DEFAULT_PADDING, pady=DEFAULT_PADDING)
