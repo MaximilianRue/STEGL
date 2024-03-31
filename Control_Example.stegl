@@ -1,0 +1,20 @@
+{
+    "GAME": {
+        "game_search_paths": [
+            "C:/Program Files/Epic Games/Control"
+        ],
+        "game_search_timeout": 60,
+        "after_game_wait": 20,
+        "launch_config": {
+            "exe_path": "C:/Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win64/EpicGamesLauncher.exe",
+            "args": [
+                "-com.epicgames.launcher://apps/calluna%<YOUR_GAME_ID>%3ACalluna?action=launch&silent=true"
+            ],
+            "max_launch_waiting": 10,
+            "min_launch_stable": 3,
+            "termination_timeout": 5,
+            "termination_retries": 3
+        }
+    },
+    "DEPENDENCIES": []
+}

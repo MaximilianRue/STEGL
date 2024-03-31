@@ -1,0 +1,1 @@
+pyinstaller stegl.spec -y
