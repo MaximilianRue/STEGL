@@ -43,7 +43,7 @@ class ProcessCapture:
 
             # Perform "launch waiting" - observe child processes and wait until
             # a stable state was reached (e.g. the PIDs dont change any more).
-            print_log("Waiting for stable process-tree: ", end="")
+            print_log(f"Waiting for stable process-tree (min {self.min_launch_stable} consecutive seconds): ", end="")
             stable_counter = 0
             pid_set = set(p.pid for p in self.find_descendent_processes())
             for _ in range(self.max_launch_waiting):
@@ -54,12 +54,12 @@ class ProcessCapture:
                     stable_counter += 1
                     print_log(stable_counter, end=" ")
                     if stable_counter >= self.min_launch_stable:
+                        print_log("Stable")
                         break
                 else:
                     stable_counter = 0
                     print_log("X", end=" ")
                 pid_set = new_pid_set
-            print_log("")
 
             if stable_counter < self.min_launch_stable:
                 print_log("Max. waiting time reached. Assuming launched.")
@@ -78,7 +78,7 @@ class ProcessCapture:
     
     def terminate(self):
 
-        print_log(f"Launch group with STEGL ID {repr(self.ID)} is terminating:", end=" ")
+        print_log(f"Launch group with STEGL ID {repr(self.ID)} is terminating .", end=" ")
         # Running multiple loops, as sometimes processes are restarted
         # by other processes and might be missed
         for _ in range(self.termination_retries):
@@ -87,10 +87,10 @@ class ProcessCapture:
             # which would also be restarting the child processes
             processes = sorted(self.find_descendent_processes(), key=lambda p: p.create_time())
             if len(processes) == 0:
-                print_log("Done.")
+                print_log("Terminated")
                 return
             
-            print_log(".", end="")
+            print_log(".", end=" ")
             
             for p in processes:
                 p.suspend()
