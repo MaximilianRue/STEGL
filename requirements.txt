@@ -1,4 +1,4 @@
 psutil
 click
 tkinter-tooltip
-pyinstaller
+pyinstaller>=6.5.0

@@ -7,10 +7,16 @@ from tkinter import ttk
 from tkinter.messagebox import askyesno, showerror
 from pathlib import Path
 from tktooltip import ToolTip
+import sys
 
 
 DEFAULT_PADDING = 5
 DEFAULT_PADDING_HALF = DEFAULT_PADDING / 2.
+
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    BITMAP_PATH = Path(sys._MEIPASS) / "wizard.ico"
+else:
+    BITMAP_PATH = Path(__file__).parent.parent / "wizard.ico"
 
 
 class PathSelectionWidget(tk.Frame):
@@ -65,8 +71,8 @@ class ProcessCaptureDetailsEditor(tk.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.title("Launch Options")
-        #self.geometry("300x150")
         self.resizable(True, False)
+        self.iconbitmap(BITMAP_PATH)
 
         self.protocol("WM_DELETE_WINDOW", self.dismiss)
 
@@ -234,7 +240,8 @@ class SteglEditor(tk.Tk):
         self.option_add('*tearOff', False)
         self.resizable(True, False)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
-        self.iconbitmap("wizard.ico")
+
+        self.iconbitmap(BITMAP_PATH)
 
         menubar = tk.Menu(self)
         self["menu"] = menubar
