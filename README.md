@@ -92,6 +92,8 @@ The following options define how the game process (and dependencies) should be l
 
 ## The STEGL Configurator
 
+You can launch the configurator by double-clicking `stegl.exe` or by running `python.exe runstegl.py`.
+
 All configuration options mentioned above can be directly accessed / specified using the *STEGL* Configurator. All widgets offer a hover menu that directly show which value in the configuration file is edited by them.
 
 ![STEGL's main window](./images/STEGL_GUI_01.PNG) ![The additional launch options window.](./images/STEGL_GUI_02.PNG)
