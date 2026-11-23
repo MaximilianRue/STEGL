@@ -10,7 +10,7 @@ Launched using:
 (Steam External Game Launcher)
 ```
 
-# STEGL (**St**eam **E**xternal **G**ame **L**auchner)
+# STEGL (**St**eam **E**xternal **G**ame **L**auncher)
 
 Trying to get non-Steam games running posed a challenge when those games required an additional game launcher to run (e.g., Epic Games Launcher). The launchers would stay open and active even after the game was closed, making Steam think that the game was still running. This was especially problematic when streaming games using SteamLink.
 
